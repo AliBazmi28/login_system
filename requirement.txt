@@ -2,12 +2,3 @@ flask
 flask-cors
 mysql-connector-python
 python-dotenv
-
-What these packages do:
-flask: Your main web server framework.
-
-flask-cors: Allows cross-origin requests, which is helpful when your frontend and backend are served from different domains or ports.
-
-mysql-connector-python: Lets you connect and query MySQL databases from Python.
-
-python-dotenv (optional but recommended): Loads your .env file for managing secrets like database credentials safely.
