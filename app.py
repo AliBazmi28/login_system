@@ -16,6 +16,9 @@ raw_port = os.environ.get('DB_PORT', '21391')
 clean_port = ''.join(filter(str.isdigit, raw_port))
 port = int(clean_port)
 
+print("DB_USER:", os.environ.get("DB_USER"))
+
+
 # Fetch DB credentials
 db_host = os.environ.get('DB_HOST')
 db_user = os.environ.get('DB_USER')
