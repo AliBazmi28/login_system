@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import mysql.connector
 from dotenv import load_dotenv
@@ -50,12 +50,17 @@ def test_db():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
+@app.route('/login', methods=['GET']) # type: ignore
+def login_page():
+    return render_template('index.html')
+
 # Route for login
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     user_id = data.get('id')
     password = data.get('password')
+
 
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
