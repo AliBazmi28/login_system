@@ -2,47 +2,41 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
+from dotenv import load_dotenv
 
+# Load .env variables
+load_dotenv()
+
+# Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
-print("RAW DB_PORT:", repr(os.environ.get('DB_PORT')))
-
+# Clean DB_PORT value
 raw_port = os.environ.get('DB_PORT', '21391')
-clean_port = ''.join(filter(str.isdigit, raw_port))  # keep only digits
+clean_port = ''.join(filter(str.isdigit, raw_port))
 port = int(clean_port)
 
-
+# Fetch DB credentials
 db_host = os.environ.get('DB_HOST')
 db_user = os.environ.get('DB_USER')
 db_password = os.environ.get('DB_PASSWORD')
 db_name = os.environ.get('DB_NAME')
 db_port = port
 
-print("DB_HOST:", db_host)
-print("DB_USER:", db_user)
-print("DB_NAME:", db_name)
-print("DB_PORT:", db_port)
-
+# Check for missing env vars
 if not all([db_host, db_user, db_password, db_name, db_port]):
     raise Exception("One or more DB environment variables are missing.")
 
+# Connect to DB
 db = mysql.connector.connect(
     host=db_host,
     user=db_user,
     password=db_password,
     database=db_name,
-    port=int(db_port)
+    port=db_port
 )
 
-db = mysql.connector.connect(
-    host=os.environ['DB_HOST'],
-    user=os.environ['DB_USER'],
-    password=os.environ['DB_PASSWORD'],
-    database=os.environ['DB_NAME'],
-    port=int(os.environ.get('DB_PORT'))
-)
-
+# Route for testing DB connection
 @app.route('/test-db')
 def test_db():
     try:
@@ -53,23 +47,23 @@ def test_db():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
-
-@app.route('/login', methods =['POST'])
+# Route for login
+@app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user_id = data['id']
-    password = data['password']
+    user_id = data.get('id')
+    password = data.get('password')
 
     cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users WHERE id =%s AND password = %s", (user_id, password))
+    cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
     result = cursor.fetchone()
-    cursor.close
+    cursor.close()
 
     if result:
         return jsonify({"success": True})
     else:
         return jsonify({"success": False})
 
-
+# Run app
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
