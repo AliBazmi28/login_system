@@ -1,38 +1,58 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', 'Inter', sans-serif;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
     background-color: #121212;
     color: #EAEAEA;
-    background-image: url('/static/assets/book-library-with-open-textbook.jpg');
+    background-image: url('/static/assets/book-library-with-open-textbook.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-/* Glassmorphic card */
+/* Heading */
+.headingLms h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Glass-style card */
 .card {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 15px;
-    padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     width: 100%;
-    max-width: 340px;
+    max-width: 360px;
     text-align: center;
 }
 
-/* Inputs */
+/* Card Heading */
+#LoginHeading {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+/* Input Fields */
 .user-inputs input {
     width: 100%;
-    padding: 10px 14px;
-    margin: 10px 0;
+    padding: 12px;
+    margin-bottom: 14px;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -41,7 +61,7 @@ body {
 }
 
 .user-inputs input::placeholder {
-    color: #888;
+    color: #777;
 }
 
 /* Button */
@@ -50,6 +70,7 @@ body {
     padding: 12px;
     background-color: #4f46e5;
     color: white;
+    font-weight: bold;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -61,14 +82,22 @@ body {
     background-color: #3730a3;
 }
 
-/* Mobile Responsiveness */
+/* Responsive Adjustments */
 @media (max-width: 480px) {
-    .card {
-        padding: 20px;
-        margin: 0 15px;
+    .headingLms h1 {
+        font-size: 1.4rem;
     }
 
-    #loginBtn, .user-inputs input {
+    .card {
+      padding: 20px;
+    }
+
+    #LoginHeading {
+        font-size: 1.2rem;
+    }
+
+    .user-inputs input,
+    #loginBtn {
         font-size: 0.95rem;
     }
 }
