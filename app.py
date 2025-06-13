@@ -39,6 +39,10 @@ db = mysql.connector.connect(
     port=db_port
 )
 
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 # Route for testing DB connection
 @app.route('/test-db')
 def test_db():
