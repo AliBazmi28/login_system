@@ -1,9 +1,6 @@
 function Login(){
     const idInput = document.getElementById("userID").value.trim();
     const passwordInput = document.getElementById("userPassword").value.trim();
-    
-    console.log("ID:", id);
-    console.log("Password:", password);
 
     if (!idInput || !passwordInput) {
         alert("Input elements not found. Check your HTML IDs")
@@ -17,6 +14,9 @@ function Login(){
         alert("Please fill in all the fields");
         return;
     }
+
+    console.log("ID:", id);
+    console.log("Password:", password);
 
     const baseURL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
         ? "http://127.0.0.1:5000"
