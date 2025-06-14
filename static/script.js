@@ -20,7 +20,7 @@ function Login(){
 
     .then((data)=>{
         if(data.success){
-            window.location.href = "/home.html";
+            window.location.href = "/home";
         }else {
             alert("Invalid ID or password.");
         }
