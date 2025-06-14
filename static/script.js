@@ -1,14 +1,6 @@
 function Login(){
-    const idInput = document.getElementById("userID").value.trim();
-    const passwordInput = document.getElementById("userPassword").value.trim();
-
-    if (!idInput || !passwordInput) {
-        alert("Input elements not found. Check your HTML IDs")
-        return;
-    }
-
-    const id = idInput.value.trim();
-    const password = passwordInput.value.trim();
+    const id = document.getElementById("userID").value.trim();
+    const password = document.getElementById("userPassword").value.trim();
 
     if(!id || !password){
         alert("Please fill in all the fields");
