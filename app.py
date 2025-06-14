@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template,redirect
 from flask_cors import CORS
 import mysql.connector
 from dotenv import load_dotenv
@@ -39,8 +39,13 @@ db = mysql.connector.connect(
     port=db_port
 )
 
+@app.route('/')
+def index():
+    return redirect('/login')
+
 @app.route('/home')
 def home():
+    print ("Homepage accessed")
     return render_template('home.html')
 
 # Route for testing DB connection
