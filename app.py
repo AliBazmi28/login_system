@@ -1,4 +1,5 @@
 import os
+from flask_cors import CORS
 from flask import Flask, request, jsonify, render_template,redirect
 from flask_cors import CORS
 import mysql.connector
@@ -9,7 +10,8 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, origins=["http://127.0.0.1:5000", "http://localhost:5000"])
 
 # Clean DB_PORT value
 raw_port = os.environ.get('DB_PORT', '21391')
@@ -38,6 +40,32 @@ db = mysql.connector.connect(
     database=db_name,
     port=db_port
 )
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return render_template('signup.html')
+
+    data = request.get_json()
+    first = data.get('firstName')
+    last = data.get('lastName')
+    email = data.get('email')
+    password = data.get('password')
+
+    cursor = db.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO users (id, first_name, last_name, password) VALUES (%s, %s, %s, %s)",
+            (email, first, last, password)
+        )
+        db.commit()
+        return jsonify({"success": True})
+    except mysql.connector.IntegrityError:
+        return jsonify({"success": False, "error": "User already exists"})
+    finally:
+        cursor.close()
+
+
 
 @app.route('/')
 def index():

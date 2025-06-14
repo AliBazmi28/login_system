@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/signup.css">
+    <title>Library Management System (LMS)</title>
+</head>
+<body>
+
+    <div class="headingLms">
+        <h1 id="Heading1">Library Management System (LMS)</h1> <!-- Fixed typo in id -->
+    </div>
+
+    <!-- ✅ Wrap everything in a form -->
+    <form class="signup-container" method="POST">
+        <h2 id="LoginHeading">Signup</h2>
+
+        <!-- ✅ Added name attributes (used in JS and server) -->
+        <div class="input-row">
+            <input type="text" id="firstName" name="first_name" placeholder="Enter your first name">
+            <input type="text" id="lastName" name="last_name" placeholder="Enter your last name">
+        </div>
+
+        <div class="input-row">
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password">
+        </div>
+
+        <input type="email" id="email" name="email" placeholder="Enter your email address">
+
+        <!-- ✅ Let the JS handle the submission -->
+        <button type="submit" id="signupBtn">Signup</button>
+    </form>
+
+    <script src="/static/signup.js"></script>
+</body>
+</html>

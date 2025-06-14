@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #EAEAEA;
+    background-image: url('/static/assets/book-library-with-open-textbook.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.headingLms h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.signup-container {
+    max-width: 550px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#LoginHeading {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px; /* Space between rows */
+}
+
+.input-row input {
+    width: 100%; /* Space adjustment */
+}
+
+input[type="text"], input[type="password"] {
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 6px;
+    width: 100%;
+}
+
+input[type="email"]{
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    width: 490px;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3730a3;
+}

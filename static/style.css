@@ -64,6 +64,10 @@ body {
     color: #777;
 }
 
+button{
+    margin: 20px 0 0;
+}
+
 /* Button */
 #loginBtn {
     width: 100%;
@@ -78,7 +82,23 @@ body {
     transition: background-color 0.3s ease;
 }
 
+#signupBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 #loginBtn:hover {
+    background-color: #3730a3;
+}
+#signupBtn:hover{
     background-color: #3730a3;
 }
 

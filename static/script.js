@@ -1,14 +1,25 @@
 function Login(){
-    const id = document.querySelector('input[placeholder="Enter your ID"]').value;
-    const password = document.querySelector('input[placeholder="Enter your password"]').value;
+    const id = document.getElementById("userID").value.trim();
+    const password = document.getElementById("userPassword").value.trim();
+    
+    console.log("ID:", id);
+    console.log("Password:", password);
+
+    if(!id.trim() || password.trim()){
+        alert("Please fill in all the fields")
+    }
+
+    const baseURL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://127.0.0.1:5000"
+        : "https://loginsystem-production-aa2b.up.railway.app";
 
 
-    fetch("https://loginsystem-production-aa2b.up.railway.app/login", {
+    fetch(`${baseURL}/login`, {
         method: "POST",
         headers: {
         "Content-Type": "application/json"
     },
-    body: JSON.stringify({id,password}),
+    body: JSON.stringify({id, password}),
 })
     .then((res)=> {
         if (!res.ok){
