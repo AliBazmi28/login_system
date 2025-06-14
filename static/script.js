@@ -1,12 +1,21 @@
 function Login(){
-    const id = document.getElementById("userID").value.trim();
-    const password = document.getElementById("userPassword").value.trim();
+    const idInput = document.getElementById("userID").value.trim();
+    const passwordInput = document.getElementById("userPassword").value.trim();
     
     console.log("ID:", id);
     console.log("Password:", password);
 
-    if(!id.trim() || password.trim()){
-        alert("Please fill in all the fields")
+    if (!idInput || !passwordInput) {
+        alert("Input elements not found. Check your HTML IDs")
+        return;
+    }
+
+    const id = idInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if(!id || !password){
+        alert("Please fill in all the fields");
+        return;
     }
 
     const baseURL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
