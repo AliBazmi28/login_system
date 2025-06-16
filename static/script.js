@@ -29,7 +29,7 @@ function Login() {
         })
         .then((data) => {
             if (data.success) {
-                window.location.href = "/apply?id=" + encodeURIComponent(id);
+                window.location.href = "/home?id=" + encodeURIComponent(id);
             } else {
                 alert("Invalid ID or password.");
             }
