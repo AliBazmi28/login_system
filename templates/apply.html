@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/apply.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="nav-left">Scholarship Portal</div>
+            <div class="nav-right">
+                <a href="#">Am I Eligible?</a>
+                <a href="#">Application Status</a>
+                <a href="#">Merit List</a>
+                <a href="#">Apply Now</a>
+            </div>
+    </div>
+
+    <form action="#" method="post">
+  <h2>Student Scholarship Form</h2>
+  <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="first-name">First Name:</label>
+      <input type="text" id="first-name" name="first_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="middle-name">Middle Name:</label>
+      <input type="text" id="middle-name" name="middle_name">
+    </div>
+
+    <div class="form-group">
+      <label for="last-name">Last Name:</label>
+      <input type="text" id="last-name" name="last_name" required>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="enrollment">Enrollment Number:</label>
+      <input type="text" id="enrollment" name="enrollment" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cnic">CNIC:</label>
+      <input type="text" id="cnic" name="cnic" placeholder="xxxxx-xxxxxxx-x" required pattern="\d{5}-\d{7}-\d{1}">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" placeholder="03xx-xxxxxxx" required pattern="03\d{2}-\d{7}">
+    </div>
+  </div>
+
+    <div class="form-row">
+  <div class="form-group">
+    <label for="gpa">GPA:</label>
+    <input type="number" step="0.01" min="0" max="4" id="gpa" name="gpa" required>
+  </div>
+
+  <div class="form-group">
+    <label for="percentage">Percentage:</label>
+    <input type="text" id="percentage" name="percentage" readonly placeholder="Will be calculated">
+  </div>
+    </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="text" id="dob" name="dob" required>
+    </div>
+
+    <div class="form-group">
+      <label for="course">Select Course:</label>
+      <select id="course" name="course" required>
+        <option value="" disabled selected>-- Choose a Course --</option>
+        <option value="cs">Computer Science</option>
+        <option value="ai">Artificial Intelligence</option>
+        <option value="se">Software Engineering</option>
+        <option value="cyber">Cyber Security</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="semester">Select Semester:</label>
+      <select id="semester" name="semester" required>
+        <option value="" disabled selected>-- Choose a Semester --</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+        <option value="7">Semester 7</option>
+        <option value="8">Semester 8</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="flex: 1 1 100%;">
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+    </div>
+  </div>
+
+  <div class="requirements-box">
+        <h2>📌 Application Requirements</h2>
+        <ul>
+            <li>✔️ You must be enrolled in a recognized university or institution.</li>
+            <li>✔️ You must currently be in Semester 1 to 8 of your academic program.</li>
+            <li>✔️ CNIC and Phone Number must follow the correct format.</li>
+            <li>✔️ Date of Birth must match your official records.</li>
+            <li>✔️ One application per student is allowed. Duplicate submissions will be rejected.</li>
+        </ul>
+    </div>
+
+
+  <button type="submit">Submit Application</button>
+</form>
+    
+
+<script src="/static/submit.js"></script>
+</body>
+</html>

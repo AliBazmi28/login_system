@@ -1,7 +1,6 @@
 import os
 from flask_cors import CORS
-from flask import Flask, request, jsonify, render_template,redirect
-from flask_cors import CORS
+from flask import Flask, request, jsonify, render_template, redirect
 import mysql.connector
 from dotenv import load_dotenv
 
@@ -19,7 +18,6 @@ clean_port = ''.join(filter(str.isdigit, raw_port))
 port = int(clean_port)
 
 print("DB_USER:", os.environ.get("DB_USER"))
-
 
 # Fetch DB credentials
 db_host = os.environ.get('DB_HOST')
@@ -40,6 +38,8 @@ db = mysql.connector.connect(
     database=db_name,
     port=db_port
 )
+
+# ================= ROUTES ===================
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -62,21 +62,67 @@ def signup():
         return jsonify({"success": True})
     except mysql.connector.IntegrityError:
         return jsonify({"success": False, "error": "User already exists"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
     finally:
         cursor.close()
-
-
 
 @app.route('/')
 def index():
     return redirect('/login')
 
+
 @app.route('/home')
 def home():
-    print ("Homepage accessed")
+    print("Homepage accessed")
     return render_template('home.html')
 
-# Route for testing DB connection
+
+@app.route('/apply', methods=['GET'])
+def apply():
+    return render_template('apply.html')
+
+
+@app.route('/submit-application', methods=['POST'])
+def submit_application():
+    data = request.get_json()
+
+    user_id = data.get('user_id')
+    first_name = data.get('first_name')
+    middle_name = data.get('middle_name')
+    last_name = data.get('last_name')
+    enrollment = data.get('enrollment')
+    cnic = data.get('cnic')
+    phone = data.get('phone')
+    dob = data.get('dob')
+    course = data.get('course')
+    semester = data.get('semester')
+    address = data.get('address')
+    gpa = data.get('gpa')
+    percentage = data.get('percentage')
+
+    try:
+        cursor = db.cursor()
+        cursor.execute("""
+            INSERT INTO applications (
+                user_id, first_name, middle_name, last_name,
+                enrollment_number, cnic, phone, dob,
+                course, semester, address, gpa, percentage
+            ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            user_id, first_name, middle_name, last_name,
+            enrollment, cnic, phone, dob,
+            course, semester, address, gpa, percentage
+        ))
+
+        db.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
+    finally:
+        cursor.close()
+
+
 @app.route('/test-db')
 def test_db():
     try:
@@ -87,17 +133,17 @@ def test_db():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
-@app.route('/login', methods=['GET']) # type: ignore
+
+@app.route('/login', methods=['GET'])  # type: ignore
 def login_page():
     return render_template('index.html')
 
-# Route for login
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     user_id = data.get('id')
     password = data.get('password')
-
 
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
@@ -108,6 +154,7 @@ def login():
         return jsonify({"success": True})
     else:
         return jsonify({"success": False})
+
 
 # Run app
 if __name__ == '__main__':
