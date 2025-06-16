@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                window.location.href = "/home";
+                alert("Signup Successful. Redirecting to login")
+                window.location.href = data.redirect;
             } else {
                 alert("Signup failed: " + (data.error || "Unknown error"));
             }

@@ -58,7 +58,7 @@ def signup():
             (email, first, last, password)
         )
         db.commit()
-        return jsonify({"success": True})
+        return jsonify({"success": True, "redirect": "/login"})
     except mysql.connector.IntegrityError:
         return jsonify({"success": False, "error": "User already exists"})
     except Exception as e:
@@ -78,12 +78,14 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    user_id = request.args.get("id")
+    return render_template('home.html', user_id=user_id)
 
 
 @app.route('/apply', methods=['GET'])
 def apply():
-    return render_template('apply.html')
+    user_id = request.args.get("id")
+    return render_template('apply.html', user_id=user_id)
 
 
 @app.route('/submit-application', methods=['POST'])
@@ -165,7 +167,7 @@ def login():
         cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
         result = cursor.fetchone()
         if result:
-            return jsonify({"success": True})
+            return jsonify({"success": True, "redirect": f"/home?id={user_id}"})
         else:
             return jsonify({"success": False})
     except Exception as e:
