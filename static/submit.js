@@ -42,7 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
             percentage = parseFloat(gpa) * 20;
         }
 
-        if (!user_id || !first_name || !last_name || !enrollment || !cnic || !phone || !dob || !course || !semester || !address || !gpa) {
+        if (
+            !user_id || !first_name || !last_name || !enrollment ||
+            !cnic || !phone || !dob || !address || !gpa ||
+            course === "" || semester === ""
+        ) {
             alert("Please fill in all required fields.");
             return;
         }
