@@ -9,15 +9,12 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-
 CORS(app, origins=["http://127.0.0.1:5000", "http://localhost:5000"])
 
 # Clean DB_PORT value
 raw_port = os.environ.get('DB_PORT', '21391')
 clean_port = ''.join(filter(str.isdigit, raw_port))
 port = int(clean_port)
-
-print("DB_USER:", os.environ.get("DB_USER"))
 
 # Fetch DB credentials
 db_host = os.environ.get('DB_HOST')
@@ -30,14 +27,15 @@ db_port = port
 if not all([db_host, db_user, db_password, db_name, db_port]):
     raise Exception("One or more DB environment variables are missing.")
 
-# Connect to DB
-db = mysql.connector.connect(
-    host=db_host,
-    user=db_user,
-    password=db_password,
-    database=db_name,
-    port=db_port
-)
+# Function to create new DB connection
+def get_db_connection():
+    return mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_name,
+        port=db_port
+    )
 
 # ================= ROUTES ===================
 
@@ -52,8 +50,9 @@ def signup():
     email = data.get('email')
     password = data.get('password')
 
-    cursor = db.cursor()
     try:
+        db = get_db_connection()
+        cursor = db.cursor()
         cursor.execute(
             "INSERT INTO users (id, first_name, last_name, password) VALUES (%s, %s, %s, %s)",
             (email, first, last, password)
@@ -65,7 +64,12 @@ def signup():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
     finally:
-        cursor.close()
+        try:
+            cursor.close()
+            db.close()
+        except:
+            pass
+
 
 @app.route('/')
 def index():
@@ -74,7 +78,6 @@ def index():
 
 @app.route('/home')
 def home():
-    print("Homepage accessed")
     return render_template('home.html')
 
 
@@ -102,6 +105,7 @@ def submit_application():
     percentage = data.get('percentage')
 
     try:
+        db = get_db_connection()
         cursor = db.cursor()
         cursor.execute("""
             INSERT INTO applications (
@@ -113,28 +117,38 @@ def submit_application():
             user_id, first_name, middle_name, last_name,
             enrollment, cnic, phone, dob,
             course, semester, address, gpa, percentage
-        ))
-
+            ))
         db.commit()
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
     finally:
-        cursor.close()
+        try:
+            cursor.close()
+            db.close()
+        except:
+            pass
 
 
 @app.route('/test-db')
 def test_db():
     try:
+        db = get_db_connection()
         cursor = db.cursor()
         cursor.execute("SELECT * FROM users")
         result = cursor.fetchall()
         return jsonify({"success": True, "rows": result})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
+    finally:
+        try:
+            cursor.close()
+            db.close()
+        except:
+            pass
 
 
-@app.route('/login', methods=['GET'])  # type: ignore
+@app.route('/login', methods=['GET'])
 def login_page():
     return render_template('index.html')
 
@@ -145,15 +159,23 @@ def login():
     user_id = data.get('id')
     password = data.get('password')
 
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
-    result = cursor.fetchone()
-    cursor.close()
-
-    if result:
-        return jsonify({"success": True})
-    else:
-        return jsonify({"success": False})
+    try:
+        db = get_db_connection()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE id = %s AND password = %s", (user_id, password))
+        result = cursor.fetchone()
+        if result:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
+    finally:
+        try:
+            cursor.close()
+            db.close()
+        except:
+            pass
 
 
 # Run app
