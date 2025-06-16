@@ -15,8 +15,12 @@
 <body>
 
     <h1>Welcome to the Scholarship Portal</h1>
-    <a href="/apply?id={{ user_id }}"><button>Apply Now</button></a>
-
+    <p>Hello, you are logged in as <strong>{{ user_id }}</strong></p>
+    <ul>
+        <li><a href="/apply?id={{ user_id }}">Apply Now</a></li>
+        <li><a href="#">Check Application Status</a></li>
+        <li><a href="#">Merit List</a></li>
+    </ul>
 </body>
 </html>
 
