@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/home.css">
     <title>Document</title>
 </head>
 <body>
@@ -13,16 +14,71 @@
     <title>Home</title>
 </head>
 <body>
+    <div class="navbar">
+        <div class="nav-left">Scholarship Portal</div>
+            <div class="nav-right">
+                <a href="#">Am I Eligible?</a>
+                <a href="#">Application Status</a>
+                <a href="#">Merit List</a>
+                <a href="/apply?id={{ user_id }}">Apply Now</a></a>
+            </div>
+    </div>
 
-    <h1>Welcome to the Scholarship Portal</h1>
-    <p>Hello, you are logged in as <strong>{{ user_id }}</strong></p>
+    <div class="welcome-overlay">
+        <h1 class="welcome-heading">Welcome to the Scholarship Portal</h1>
+        <p>Hello, you are logged in as <strong>{{ user_id }}</strong></p>
+    </div>
+
+    <div class="homepage-content">
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+    <h2>What would you like to do?</h2>
+    <div class="action-buttons">
+      <a href="/apply?id={{ user_id }}" class="action-card">📝 Apply for Scholarship</a>
+      <a href="#" class="action-card">📋 Check Application Status</a>
+      <a href="#" class="action-card">🏅 View Merit List</a>
+    </div>
+  </section>
+
+  <!-- Info Highlights -->
+  <section class="info-highlights">
+    <h2>Why Apply Through This Portal?</h2>
     <ul>
-        <li><a href="/apply?id={{ user_id }}">Apply Now</a></li>
-        <li><a href="#">Check Application Status</a></li>
-        <li><a href="#">Merit List</a></li>
+      <li>📌 One application connects you to multiple scholarships.</li>
+      <li>📈 Track your progress and updates in real-time.</li>
+      <li>🎓 Open to students from Semester 1–8 in tech programs.</li>
     </ul>
-</body>
-</html>
+  </section>
+
+  <!-- Instructions -->
+  <section class="how-to-apply">
+    <h2>How to Apply?</h2>
+    <ol>
+      <li>Click on "Apply Now"</li>
+      <li>Fill out the required personal and academic information</li>
+      <li>Submit your form and wait for confirmation</li>
+    </ol>
+  </section>
+
+  <!-- Support -->
+  <section class="support-box">
+    <p>❓ Need help? Contact your university’s scholarship cell or email <strong>support@scholarships.pk</strong></p>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Scholarship Portal. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <span>|</span>
+      <a href="#">Terms of Use</a>
+      <span>|</span>
+      <a href="mailto:support@scholarships.pk">Contact Us</a>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

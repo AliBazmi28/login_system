@@ -102,9 +102,13 @@ def submit_application():
     dob = data.get('dob')
     course = data.get('course')
     semester = data.get('semester')
-    address = data.get('address')
     gpa = data.get('gpa')
     percentage = data.get('percentage')
+    father_name = data.get('father_name')
+    father_cnic = data.get('father_cnic')
+    father_occupation = data.get('father_occupation')
+    father_phone = data.get('father_phone')
+    monthly_income = data.get('monthly_income')
 
     try:
         db = get_db_connection()
@@ -113,12 +117,14 @@ def submit_application():
             INSERT INTO applications (
                 user_id, first_name, middle_name, last_name,
                 enrollment_number, cnic, phone, dob,
-                course, semester, address, gpa, percentage
-            ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                course, semester, gpa, percentage,
+                father_name, father_cnic, father_occupation, father_phone, monthly_income
+                       ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """, (
             user_id, first_name, middle_name, last_name,
             enrollment, cnic, phone, dob,
-            course, semester, address, gpa, percentage
+            course, semester, gpa, percentage,
+            father_name,father_cnic, father_occupation, father_phone, monthly_income
             ))
         db.commit()
         return jsonify({"success": True})
